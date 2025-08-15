@@ -1,0 +1,1 @@
+copy `calibration` to `/home/USER/.cache/huggingface/lerobot/calibration`
