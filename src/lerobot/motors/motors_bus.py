@@ -222,9 +222,9 @@ class MotorsBus(abc.ABC):
     A MotorsBus subclass instance requires a port (e.g. `FeetechMotorsBus(port="/dev/tty.usbmodem575E0031751"`)).
     To find the port, you can run our utility script:
     ```bash
-    python -m lerobot.find_port.py
+    lerobot-find-port.py
     >>> Finding all available ports for the MotorsBus.
-    >>> ['/dev/tty.usbmodem575E0032081', '/dev/tty.usbmodem575E0031751']
+    >>> ["/dev/tty.usbmodem575E0032081", "/dev/tty.usbmodem575E0031751"]
     >>> Remove the usb cable from your MotorsBus and press Enter when done.
     >>> The port of this MotorsBus is /dev/tty.usbmodem575E0031751.
     >>> Reconnect the usb cable.
@@ -446,7 +446,7 @@ class MotorsBus(abc.ABC):
         except (FileNotFoundError, OSError, serial.SerialException) as e:
             raise ConnectionError(
                 f"\nCould not connect on port '{self.port}'. Make sure you are using the correct port."
-                "\nTry running `python -m lerobot.find_port`\n"
+                "\nTry running `lerobot-find-port`\n"
             ) from e
 
     @abc.abstractmethod
@@ -586,7 +586,7 @@ class MotorsBus(abc.ABC):
         pass
 
     @contextmanager
-    def torque_disabled(self):
+    def torque_disabled(self, motors: int | str | list[str] | None = None):
         """Context-manager that guarantees torque is re-enabled.
 
         This helper is useful to temporarily disable torque when configuring motors.
@@ -596,11 +596,11 @@ class MotorsBus(abc.ABC):
             ...     # Safe operations here
             ...     pass
         """
-        self.disable_torque()
+        self.disable_torque(motors)
         try:
             yield
         finally:
-            self.enable_torque()
+            self.enable_torque(motors)
 
     def set_timeout(self, timeout_ms: int | None = None):
         """Change the packet timeout used by the SDK.
@@ -653,12 +653,13 @@ class MotorsBus(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def write_calibration(self, calibration_dict: dict[str, MotorCalibration]) -> None:
-        """Write calibration parameters to the motors and cache them.
+    def write_calibration(self, calibration_dict: dict[str, MotorCalibration], cache: bool = True) -> None:
+        """Write calibration parameters to the motors and optionally cache them.
 
         Args:
             calibration_dict (dict[str, MotorCalibration]): Calibration obtained from
                 :pymeth:`read_calibration` or crafted by the user.
+            cache (bool, optional): Save the calibration to :pyattr:`calibration`. Defaults to True.
         """
         pass
 

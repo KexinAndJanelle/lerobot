@@ -18,7 +18,7 @@ Helper to recalibrate your device (robot or teleoperator).
 Example:
 
 ```shell
-python -m lerobot.calibrate \
+lerobot-calibrate \
     --teleop.type=so100_leader \
     --teleop.port=/dev/tty.usbmodem58760431551 \
     --teleop.id=blue
@@ -36,6 +36,7 @@ from lerobot.cameras.realsense.configuration_realsense import RealSenseCameraCon
 from lerobot.robots import (  # noqa: F401
     Robot,
     RobotConfig,
+    hope_jr,
     koch_follower,
     lekiwi,
     make_robot_from_config,
@@ -45,6 +46,7 @@ from lerobot.robots import (  # noqa: F401
 from lerobot.teleoperators import (  # noqa: F401
     Teleoperator,
     TeleoperatorConfig,
+    homunculus,
     koch_leader,
     make_teleoperator_from_config,
     so100_leader,
@@ -80,5 +82,9 @@ def calibrate(cfg: CalibrateConfig):
     device.disconnect()
 
 
-if __name__ == "__main__":
+def main():
     calibrate()
+
+
+if __name__ == "__main__":
+    main()
