@@ -12,9 +12,10 @@ from lerobot.record import record_loop
 NUM_EPISODES = 5
 FPS = 30
 EPISODE_TIME_SEC = 10
-RESET_TIME_SEC = 10
+RESET_TIME_SEC = 5
 TASK_DESCRIPTION = "a simple up and down dancing"
 DATASET_NAME = "KristinWei/dance_same"
+# DATASET_NAME = "janelleopj/dance_same"
 
 # TODO: wait until camera
 # Create the robot and teleoperator configurations
