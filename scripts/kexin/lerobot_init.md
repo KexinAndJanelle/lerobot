@@ -8,4 +8,4 @@ if you are using a linux system, you may need to run the following commands to e
 `sudo chmod 666 /dev/ttyACM1`
 
 # huggingface token
-huggingface-cli login --token ${HUGGINGFACE_TOKEN} --add-to-git-credential
+hf auth login --token ${HUGGINGFACE_TOKEN} --add-to-git-credential
