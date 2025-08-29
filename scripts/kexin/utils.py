@@ -8,7 +8,7 @@ def get_hf_user():
         # The 'check=True' argument will raise an exception if the command fails
         # The 'capture_output=True' will capture stdout and stderr
         HF_USER = subprocess.run(
-            "HF_USER=$(hf auth whoami | head -n 1); echo $HF_USER",
+            "echo $HF_USER",
             shell=True,
             check=True,
             capture_output=True,

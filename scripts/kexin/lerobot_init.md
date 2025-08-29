@@ -9,3 +9,4 @@ if you are using a linux system, you may need to run the following commands to e
 
 # huggingface token
 hf auth login --token ${HUGGINGFACE_TOKEN} --add-to-git-credential
+echo 'export HF_USER=$(hf auth whoami | head -n 1)' >> ~/.bashrc
