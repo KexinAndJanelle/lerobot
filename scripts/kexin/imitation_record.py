@@ -9,36 +9,31 @@ from lerobot.utils.utils import log_say
 from lerobot.utils.visualization_utils import _init_rerun
 from lerobot.record import record_loop
 
-from constants import DATASET_NAME
+from constants import (
+    DATASET_NAME, 
+    FOLLOWER_PORT, LEADER_PORT,
+    CAM_IDX, CAM_WIDTH, CAM_HEIGHT, CAM_FPS,
+)
 
 NUM_EPISODES = 5
-FPS = 30
+FPS = CAM_FPS
 EPISODE_TIME_SEC = 10
 RESET_TIME_SEC = 5
 TASK_DESCRIPTION = "a simple up and down dancing"
-# DATASET_NAME from constants.py
 
-# TODO: wait until camera
 # Create the robot and teleoperator configurations
-# camera_config = {
-#     "front": OpenCVCameraConfig(index_or_path=0, width=640, height=480, fps=FPS)
-# }
-# robot_config = SO101FollowerConfig(
-#     port="/dev/tty.usbmodem58760434471",
-#     id="my_awesome_follower_arm",
-#     cameras=camera_config,
-# )
-# teleop_config = SO101LeaderConfig(
-#     port="/dev/tty.usbmodem585A0077581", id="my_awesome_leader_arm"
-# )
+camera_config = {
+    "front": OpenCVCameraConfig(index_or_path=CAM_IDX, width=CAM_WIDTH, height=CAM_HEIGHT, fps=FPS)
+}
 
 robot_config = SO101FollowerConfig(
-    port="/dev/ttyACM0",
+    port=FOLLOWER_PORT,
     id="follow_arm",
+    cameras=camera_config,
 )
 
 teleop_config = SO101LeaderConfig(
-    port="/dev/ttyACM1",
+    port=LEADER_PORT,
     id="leader_arm",
 )
 
