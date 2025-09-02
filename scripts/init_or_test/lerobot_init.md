@@ -1,4 +1,6 @@
-# ports:
+# find ports
+make sure `pip install -e ".[feetech]"` is done, and then run `lerobot-find-port`
+default setting for the scripts:
 - folower: /dev/ttyACM0
 - leader: /dev/ttyACM1
 

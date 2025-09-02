@@ -1,6 +1,9 @@
 from lerobot.teleoperators.so101_leader import SO101LeaderConfig, SO101Leader
 from lerobot.robots.so101_follower import SO101FollowerConfig, SO101Follower
+import sys
+from pathlib import Path
 
+sys.path.append(str(Path(__file__).parent.parent))
 from constants import FOLLOWER_PORT, LEADER_PORT
 
 robot_config = SO101FollowerConfig(

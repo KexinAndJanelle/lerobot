@@ -1,7 +1,7 @@
 from utils import get_hf_user
 
-FOLLOWER_PORT = "/dev/ttyACM1"
-LEADER_PORT = "/dev/ttyACM0"
+FOLLOWER_PORT = "/dev/ttyACM0"
+LEADER_PORT = "/dev/ttyACM1"
 
 TASK_NAME = "dance_same_with_cam"
 HF_USER = get_hf_user()
