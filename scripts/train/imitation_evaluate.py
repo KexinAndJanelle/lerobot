@@ -2,33 +2,51 @@ from lerobot.cameras.opencv.configuration_opencv import OpenCVCameraConfig
 from lerobot.datasets.lerobot_dataset import LeRobotDataset
 from lerobot.datasets.utils import hw_to_dataset_features
 from lerobot.policies.act.modeling_act import ACTPolicy
-from lerobot.robots.so100_follower.config_so100_follower import SO100FollowerConfig
-from lerobot.robots.so100_follower.so100_follower import SO100Follower
+from lerobot.robots.so101_follower import SO101FollowerConfig, SO101Follower
 from lerobot.utils.control_utils import init_keyboard_listener
 from lerobot.utils.utils import log_say
 from lerobot.utils.visualization_utils import _init_rerun
 from lerobot.record import record_loop
 
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
+
+from constants import (
+    FOLLOWER_PORT,
+    CAM_IDX,
+    CAM_WIDTH,
+    CAM_HEIGHT,
+    CAM_FPS,
+    HF_USER,
+)
+
 NUM_EPISODES = 5
-FPS = 30
+FPS = CAM_FPS
 EPISODE_TIME_SEC = 60
-TASK_DESCRIPTION = "My task description"
+TASK_DESCRIPTION = "Dance same with camera evaluation"
+POLICY_REPO_ID = f"{HF_USER}/dance_same_with_cam_policy"  # From training command
+EVAL_DATASET_NAME = f"{HF_USER}/eval_dance_same_with_cam"
 
 # Create the robot configuration
 camera_config = {
-    "front": OpenCVCameraConfig(index_or_path=0, width=640, height=480, fps=FPS)
+    "front": OpenCVCameraConfig(
+        index_or_path=CAM_IDX, width=CAM_WIDTH, height=CAM_HEIGHT, fps=FPS
+    )
 }
-robot_config = SO100FollowerConfig(
-    port="/dev/tty.usbmodem58760434471",
-    id="my_awesome_follower_arm",
+
+robot_config = SO101FollowerConfig(
+    port=FOLLOWER_PORT,
+    id="follow_arm",
     cameras=camera_config,
 )
 
 # Initialize the robot
-robot = SO100Follower(robot_config)
+robot = SO101Follower(robot_config)
 
 # Initialize the policy
-policy = ACTPolicy.from_pretrained("<hf_username>/<my_policy_repo_id>")
+policy = ACTPolicy.from_pretrained(POLICY_REPO_ID)
 
 # Configure the dataset features
 action_features = hw_to_dataset_features(robot.action_features, "action")
@@ -37,7 +55,7 @@ dataset_features = {**action_features, **obs_features}
 
 # Create the dataset
 dataset = LeRobotDataset.create(
-    repo_id="<hf_username>/eval_<dataset_repo_id>",
+    repo_id=EVAL_DATASET_NAME,
     fps=FPS,
     features=dataset_features,
     robot_type=robot.name,
