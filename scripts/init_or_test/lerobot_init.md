@@ -17,3 +17,5 @@ if you are using a linux system, you may need to run the following commands to e
 open camera with external software (like cheese) then run on terminal:
 `lsof /dev/video*`
 (find /dev/videoXX)
+
+or run `v4l2-ctl --list-devices` to list all video devices, run `sudo apt install v4l-utils` if not installed
