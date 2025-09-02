@@ -4,7 +4,8 @@ FOLLOWER_PORT = "/dev/ttyACM0"
 LEADER_PORT = "/dev/ttyACM1"
 
 TASK_NAME = "dance_same_with_cam"
-HF_USER = get_hf_user()
+# HF_USER = get_hf_user()
+HF_USER = "kandj"  # use org name
 DATASET_NAME = f"{HF_USER}/{TASK_NAME}"
 
 CAM_IDX = 32
