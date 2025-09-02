@@ -11,6 +11,7 @@ from lerobot.record import record_loop
 
 import sys
 from pathlib import Path
+
 sys.path.append(str(Path(__file__).parent.parent))
 
 from constants import (
@@ -23,9 +24,9 @@ from constants import (
     CAM_FPS,
 )
 
-NUM_EPISODES = 5
+NUM_EPISODES = 10
 FPS = CAM_FPS
-EPISODE_TIME_SEC = 10
+EPISODE_TIME_SEC = 7
 RESET_TIME_SEC = 5
 TASK_DESCRIPTION = "a simple up and down dancing"
 

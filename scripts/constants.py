@@ -8,8 +8,8 @@ TASK_NAME = "dance_same_with_cam"
 HF_USER = "kandj"  # use org name
 DATASET_NAME = f"{HF_USER}/{TASK_NAME}"
 
-CAM_IDX = 32
+CAM_IDX = 2
 # get from running camera_check.py
-CAM_WIDTH = 1920 
-CAM_HEIGHT = 1080
+CAM_WIDTH = 640
+CAM_HEIGHT = 480
 CAM_FPS = 5

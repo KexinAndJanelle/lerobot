@@ -13,8 +13,10 @@ if you are using a linux system, you may need to run the following commands to e
 `hf auth login --token ${HUGGINGFACE_TOKEN} --add-to-git-credential`
 `echo 'export HF_USER=$(hf auth whoami | head -n 1)' >> ~/.bashrc`
 
-# check which camera
-open camera with external software (like cheese) then run on terminal:
+# find camera
+run `lerobot-find-cameras opencv # or realsense for Intel Realsense cameras`
+
+if can't run above code, open camera with external software (like cheese) then run on terminal:
 `lsof /dev/video*`
 (find /dev/videoXX)
 
